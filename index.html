@@ -10,7 +10,7 @@
     <canvas id="canvas"></canvas>
 
     <!-- Shaders -->
-    <script id="vs" type="notjs">
+    <script src="shaders/shader.vert" id="vs" type="notjs">
         attribute vec4 position;
 
         void main() {
@@ -37,7 +37,7 @@
         }
     </script>
 
-    <script type="module" src="index.js"></script>
+    <script type="module" src="index.js" defer></script>
     <style>
         html, body {
             margin: 0 !important;
