@@ -1,21 +1,27 @@
-var canvas = document.getElementById('canvas');
-var gl = canvas.getContext('experimental-webgl');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+import * as twgl from './lib/twgl-full.module.js';
 
-var timeOld = 0;
-var animate = function(time) {
-    var deltaTime = time-timeOld;
+const gl = document.getElementById("canvas").getContext("webgl");
+const programInfo = twgl.createProgramInfo(gl, ["vs", "fs"]);
 
-    gl.enable(gl.DEPTH_TEST);
+const arrays = {
+    position: [-1, -1, 0, 1, -1, 0, -1, 1, 0, -1, 1, 0, 1, -1, 0, 1, 1, 0],
+};
+const bufferInfo = twgl.createBufferInfoFromArrays(gl, arrays);
 
-    // gl.depthFunc(gl.LEQUAL);
+function render(time) {
+    twgl.resizeCanvasToDisplaySize(gl.canvas);
+    gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
 
-    gl.clearColor(0.5, 0.5, 0.5, 0.9);
-    gl.clearDepth(1.0);
-    gl.viewport(0.0, 0.0, canvas.width, canvas.height);
-    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    const uniforms = {
+        time: time * 0.001,
+        resolution: [gl.canvas.width, gl.canvas.height],
+    };
 
-    window.requestAnimationFrame(animate);
+    gl.useProgram(programInfo.program);
+    twgl.setBuffersAndAttributes(gl, programInfo, bufferInfo);
+    twgl.setUniforms(programInfo, uniforms);
+    twgl.drawBufferInfo(gl, bufferInfo);
+
+    requestAnimationFrame(render);
 }
-animate(0);
+requestAnimationFrame(render);
