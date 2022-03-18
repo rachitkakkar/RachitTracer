@@ -2,6 +2,8 @@ import * as twgl from './lib/twgl-full.module.js';
 
 const gl = document.getElementById("canvas").getContext("webgl");
 const programInfo = twgl.createProgramInfo(gl, ["vs", "fs"]);
+gl.canvas.width = window.innerWidth;
+gl.canvas.height = window.innerHeight;
 
 const arrays = {
     position: [-1, -1, 0, 1, -1, 0, -1, 1, 0, -1, 1, 0, 1, -1, 0, 1, 1, 0],
