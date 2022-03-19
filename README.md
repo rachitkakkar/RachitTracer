@@ -1,2 +1,2 @@
 # RachitTracer
-Utilizing WebGL and shaders to implement raytracing!
+Utilizing WebGL and shaders to implement raytracing! The implementation follows Pete Shirley's "Ray Tracing in One Weekend", but instead of C++, it is done in a fragment shader for a flat WebGL quad. This allows the code to run faster than a CPU implementation, but the shader language is very basic and lacks the features of a modern, higher-level language. It does have a robust Vector3 type, allowing me to skip all the work of implementing one by myself.
